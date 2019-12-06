@@ -100,7 +100,7 @@ class FromRomanBadInput(unittest.TestCase):
         for s in ('MMMMM', 'DD', 'CCCC', 'LL', 'XXXX', 'VV', 'IIII'):
             self.assertRaises(roman.InvalidRomanNumeralError, roman.from_roman, s)
 
-    def test_repeated_pais(self):
+    def test_repeated_pairs(self):
         '''from_roman should fail with repeated pairs of numerals'''
         for s in ('CMCM', 'CDCD', 'XCXC', 'XLXL', 'IXIX', 'IVIV'):
             self.assertRaises(roman.InvalidRomanNumeralError, roman.from_roman, s)
