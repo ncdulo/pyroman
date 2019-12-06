@@ -7,7 +7,7 @@ import argparse
 def parse_command_line_args():
     '''Load a dictionary with pairs of command line arguments and return them'''
     # Create a new argument parser object
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='convert between Roman numeral and integer')
 
     # A mutually exclusive group means only one of the items within may be selected
     mode = parser.add_mutually_exclusive_group()
