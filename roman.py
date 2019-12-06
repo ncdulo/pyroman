@@ -24,14 +24,8 @@ roman_numeral_map = (('M',  1000),
                      ('IV',    4),
                      ('I',     1))
 
-roman_numeral_pattern = re.compile('''
-        ^                   # beginning of string
-        M{0,4}              # thousands
-        (CM|CD|D?C{0,3})    # hundreds
-        (XC|XL|L?X{0,3})    # tens
-        (IX|IV|V?I{0,3})    # ones
-        $                   # end of string
-        ''', re.VERBOSE)
+to_roman_table = [ None ]
+from_roman_table = {}
 
 def to_roman(n):
     '''convert integer to Roman numeral'''
@@ -41,27 +35,36 @@ def to_roman(n):
     if not isinstance(n, int):
         raise NotIntegerError('non-integers can not be converted')
 
-    result = ''
-    for numeral, integer in roman_numeral_map:
-        while n >= integer:
-            result += numeral
-            n -= integer
-
-    return result
+    return to_roman_table[n] 
 
 def from_roman(s):
     '''convert Roman numeral to integer'''
+    if not isinstance(s, str):
+        raise InvalidRomanNumeralError('Input must be a string')
     if not s:
         raise InvalidRomanNumeralError('Input can not be blank')
-    if not roman_numeral_pattern.search(s):
+    if s not in from_roman_table:
         raise InvalidRomanNumeralError('Invalid Roman numeral: {0}'.format(s))
 
-    result = 0
-    index = 0
-    for numeral, integer in roman_numeral_map:
-        while s[index:index+len(numeral)] == numeral:
-            result += integer
-            index += len(numeral)
+    return from_roman_table[s]
 
-    return result
+def build_lookup_tables():
+    def to_roman(n):
+        result = ''
+        
+        for numeral, integer in roman_numeral_map:
+            if n >= integer:
+                result = numeral
+                n -= integer
+                break
+        if n > 0:
+            result += to_roman_table[n]
+        return result
+
+    for integer in range(1, 5000):
+        roman_numeral = to_roman(integer)
+        to_roman_table.append(roman_numeral)
+        from_roman_table[roman_numeral] = integer
+
+build_lookup_tables()
 
