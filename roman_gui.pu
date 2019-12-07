@@ -1,0 +1,55 @@
+#!/usr/bin/python
+
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
+import roman
+
+class RomanWindow(Gtk.Window):
+
+    def __init__(self):
+        # Main Gtk.Window() setup
+        Gtk.Window.__init__(self, title="PyRoman")
+        
+        # Create a new Grid() for layout
+        grid = Gtk.Grid()
+        self.add(grid)
+
+        # Text labels
+        self.label_pyroman = Gtk.Label(label=roman.to_roman(42))
+
+        # Text input
+
+        # Buttons
+        self.button_convert = Gtk.Button(label="Convert")
+        self.button_quit = Gtk.Button(label="Quit")
+
+        # Callbacks
+        self.button_convert.connect("clicked", self.on_convert_clicked)
+        self.button_quit.connect("clicked", Gtk.main_quit)
+
+        # Add it all to the Grid()
+
+        # Grid.attach(child, left, top, width, height)
+        # Grid.attach_next_to(child, sibling, side, width, height)
+        grid.add(self.button_convert)
+        grid.attach_next_to(self.button_quit, self.button_convert, Gtk.PositionType.RIGHT, 2, 1)
+        grid.attach(self.label_pyroman, 0, 1, 2, 1)
+
+
+    # Callback defs
+
+    # Convert button has been pressed
+    def on_convert_clicked(self, widget):
+        self.label_pyroman.set_text(roman.to_roman(69))
+
+# Create an instance of our window class and display it
+win = RomanWindow()
+win.connect("destroy", Gtk.main_quit)
+win.show_all()
+
+# Enter main GTK event processing loop
+Gtk.main()
+
