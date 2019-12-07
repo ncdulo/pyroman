@@ -9,7 +9,7 @@ The idea and source code for this project originally came from Dive Into Python 
 #### Library
 #### Command Line Wrapper
 #### Gtk3 Wrapper
-I have created a simple to use Gtk3 wrapper for use of the library without entering a Python shell or writing a script. Make sure `roman_gui.py` has execute permissions and the executable directly.
+I have created a simple to use Gtk3 wrapper for use of the library without entering a Python shell or writing a script. Make sure `roman_gui.py` has execute permissions and run the executable directly.
 
 The output mode setting controls the type of input accepted and the type returned. Numeral mode accepts an integer and returns a Roman numeral. Integer mode accepts a Roman numeral and returns an integer. Note that Roman numeral input must be uppercase. Integer input must be whole numbers, greater than 0 but less than 4,999.
 
