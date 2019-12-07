@@ -9,6 +9,8 @@ import roman
 
 class RomanWindow(Gtk.Window):
 
+    mode = "numeral"
+
     def __init__(self):
         # Main Gtk.Window() setup
         Gtk.Window.__init__(self, title="PyRoman")
@@ -21,10 +23,12 @@ class RomanWindow(Gtk.Window):
         self.label_pyroman = Gtk.Label()
         self.label_input = Gtk.Label()
         self.label_output = Gtk.Label()
+        self.label_mode = Gtk.Label()
 
         self.label_pyroman.set_markup("<big>PyRoman</big>\n© ncdulo 2019")
         self.label_input.set_text("Input:")
         self.label_output.set_text("Output:")
+        self.label_mode.set_text("Output Mode:")
 
         # Text entry
         self.entry_input = Gtk.Entry()
@@ -32,11 +36,25 @@ class RomanWindow(Gtk.Window):
 
         self.entry_output.set_editable(None)
 
+        # Radio Buttons for mode
+        self.modebox = Gtk.Box(spacing=6)
+        
+        self.button_mode_numeral = Gtk.RadioButton.new_with_label_from_widget(None, "Numeral")
+        self.button_mode_integer = Gtk.RadioButton.new_from_widget(self.button_mode_numeral)
+        self.button_mode_integer.set_label("Integer")
+
+        self.modebox.pack_start(self.label_mode, False, False, 0)
+        self.modebox.pack_end(self.button_mode_numeral, False, False, 0)
+        self.modebox.pack_end(self.button_mode_integer, False, False, 0)
+        
+
         # Buttons
         self.button_convert = Gtk.Button(label="Convert")
         self.button_quit = Gtk.Button(label="Quit")
 
         # Callbacks
+        self.button_mode_numeral.connect("toggled", self.on_mode_toggled, "numeral")
+        self.button_mode_integer.connect("toggled", self.on_mode_toggled, "integer")
         self.button_convert.connect("clicked", self.on_convert_clicked)
         self.button_quit.connect("clicked", Gtk.main_quit)
 
@@ -62,19 +80,38 @@ class RomanWindow(Gtk.Window):
         grid.attach_next_to(self.entry_output, self.label_output, Gtk.PositionType.RIGHT, 1, 1)
 
         # Mode row
+        grid.attach(self.modebox, 0, 4, 2, 2)
 
         # Button/Command row
-        grid.attach(self.button_convert, 0, 3, 1, 1)
+        grid.attach(self.button_convert, 0, 6, 1, 1)
         grid.attach_next_to(self.button_quit, self.button_convert, Gtk.PositionType.RIGHT, 2, 1)
 
 
     # Callback defs
 
+    # Change conversion mode
+    def on_mode_toggled(self, widget, mode):
+        self.mode = mode
+        print("mode: ", self.mode)
+        print('')
+
     # Convert button has been pressed
     def on_convert_clicked(self, widget):
         input_text = self.entry_input.get_text()
-        print(input_text)
-        self.entry_output.set_text(roman.to_roman(input_text))
+        output_text = ""
+
+        print(input_text, type(input_text), self.mode)
+
+        # Numeral output mode
+        if self.mode in "numeral":
+            print("to_roman(",int(input_text),")")
+            output_text = roman.to_roman(int(input_text))
+        # Integer output mode
+        elif self.mode in "integer":
+            print("from_roman(",str(input_text),")")
+            output_text = roman.from_roman(str(input_text))
+
+        self.entry_output.set_text(output_text)
 
 # Create an instance of our window class and display it
 win = RomanWindow()
