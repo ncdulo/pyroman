@@ -18,9 +18,19 @@ class RomanWindow(Gtk.Window):
         self.add(grid)
 
         # Text labels
-        self.label_pyroman = Gtk.Label(label=roman.to_roman(42))
+        self.label_pyroman = Gtk.Label()
+        self.label_input = Gtk.Label()
+        self.label_output = Gtk.Label()
 
-        # Text input
+        self.label_pyroman.set_markup("<big>PyRoman</big>\n© ncdulo 2019")
+        self.label_input.set_text("Input:")
+        self.label_output.set_text("Output:")
+
+        # Text entry
+        self.entry_input = Gtk.Entry()
+        self.entry_output = Gtk.Entry()
+
+        self.entry_output.set_editable(None)
 
         # Buttons
         self.button_convert = Gtk.Button(label="Convert")
@@ -34,16 +44,37 @@ class RomanWindow(Gtk.Window):
 
         # Grid.attach(child, left, top, width, height)
         # Grid.attach_next_to(child, sibling, side, width, height)
-        grid.add(self.button_convert)
+
+        # Original grid, reference material
+        #grid.add(self.button_convert)
+        #grid.attach_next_to(self.button_quit, self.button_convert, Gtk.PositionType.RIGHT, 2, 1)
+        #grid.attach(self.label_pyroman, 0, 1, 2, 1)
+        # The real grid
+        # Top Row (title, description)
+        grid.add(self.label_pyroman)
+
+        # Input row
+        grid.attach(self.label_input, 0, 1, 1, 1)
+        grid.attach_next_to(self.entry_input, self.label_input, Gtk.PositionType.RIGHT, 1, 1)
+
+        # Output row
+        grid.attach(self.label_output, 0, 2, 1, 1)
+        grid.attach_next_to(self.entry_output, self.label_output, Gtk.PositionType.RIGHT, 1, 1)
+
+        # Mode row
+
+        # Button/Command row
+        grid.attach(self.button_convert, 0, 3, 1, 1)
         grid.attach_next_to(self.button_quit, self.button_convert, Gtk.PositionType.RIGHT, 2, 1)
-        grid.attach(self.label_pyroman, 0, 1, 2, 1)
 
 
     # Callback defs
 
     # Convert button has been pressed
     def on_convert_clicked(self, widget):
-        self.label_pyroman.set_text(roman.to_roman(69))
+        input_text = self.entry_input.get_text()
+        print(input_text)
+        self.entry_output.set_text(roman.to_roman(input_text))
 
 # Create an instance of our window class and display it
 win = RomanWindow()
