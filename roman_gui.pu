@@ -92,8 +92,14 @@ class RomanWindow(Gtk.Window):
     # Change conversion mode
     def on_mode_toggled(self, widget, mode):
         self.mode = mode
-        print("mode: ", self.mode)
-        print('')
+      
+        # Copy output to input. Makes for easy "round trip" conversion
+        self.entry_input.set_text(self.entry_output.get_text())
+
+        # I would like to clear the output entry box here. But doing so
+        # also clears the input entry box as well. get_text() returns a point
+        # so an alternative method will probably need to be used.
+        #self.entry_output.set_text("")
 
     # Convert button has been pressed
     def on_convert_clicked(self, widget):
