@@ -103,15 +103,15 @@ class RomanWindow(Gtk.Window):
         print(input_text, type(input_text), self.mode)
 
         # Numeral output mode
-        if self.mode in "numeral":
+        if self.mode == "numeral":
             print("to_roman(",int(input_text),")")
             output_text = roman.to_roman(int(input_text))
         # Integer output mode
-        elif self.mode in "integer":
-            print("from_roman(",str(input_text),")")
-            output_text = roman.from_roman(str(input_text))
+        elif self.mode == "integer":
+            print("from_roman(",input_text,")")
+            output_text = roman.from_roman(input_text)
 
-        self.entry_output.set_text(output_text)
+        self.entry_output.set_text(str(output_text))
 
 # Create an instance of our window class and display it
 win = RomanWindow()
