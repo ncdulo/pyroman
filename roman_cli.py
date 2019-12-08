@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # PyRoman - Convert between Roman numeral and integer
 # Copyright (C) 2019 ncdulo
