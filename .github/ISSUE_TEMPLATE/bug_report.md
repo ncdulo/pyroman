@@ -24,15 +24,10 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+ - OS: [e.g. Linux, Mac OSX]
+ - Python Version: [e.g. 3.6, 3.7]
+ - PyRoman Install Method: [e.g. Pip, Git clone, setup.py]
+ - PyRoman version [e.g. Commit number, or release version]
 
 **Additional context**
 Add any other context about the problem here.
